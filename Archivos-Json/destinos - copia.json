@@ -1,0 +1,32 @@
+[
+    {
+    "id": 1,
+    "nombre": "Bariloche",
+    "precio": 85000,
+    "disponibilidad": 20
+    },
+    {
+    "id": 2,
+    "nombre": "Iguazú",
+    "precio": 72000,
+    "disponibilidad": 15
+    },
+    {
+    "id": 3,
+    "nombre": "Salta",
+    "precio": 69000,
+    "disponibilidad": 12
+    },
+    {
+    "id": 4,
+    "nombre": "Mendoza",
+    "precio": 77000,
+    "disponibilidad": 18
+    },
+    {
+    "id": 5,
+    "nombre": "El Calafate",
+    "precio": 95000,
+    "disponibilidad": 10
+    }
+]

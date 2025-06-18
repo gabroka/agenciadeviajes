@@ -1,0 +1,37 @@
+[
+    {
+    "id": 1,
+    "nombre": "Ana",
+    "apellido": "Pérez",
+    "dni": "30256845",
+    "email": "ana.perez@gmail.com"
+    },
+    {
+    "id": 2,
+    "nombre": "Luis",
+    "apellido": "Gómez",
+    "dni": "28345091",
+    "email": "luisgomez@gmail.com"
+    },
+    {
+    "id": 3,
+    "nombre": "María",
+    "apellido": "López",
+    "dni": "41234567",
+    "email": "maria.lopez@gmail.com"
+    },
+    {
+    "id": 4,
+    "nombre": "Carlos",
+    "apellido": "Fernández",
+    "dni": "29456321",
+    "email": "carlosf@gmail.com"
+    },
+    {
+    "id": 5,
+    "nombre": "Lucía",
+    "apellido": "Martínez",
+    "dni": "44789012",
+    "email": "lucia.martinez@gmail.com"
+    }
+]

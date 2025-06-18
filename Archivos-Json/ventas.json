@@ -1,0 +1,58 @@
+[
+    {
+    "id": 1,
+    "id_cliente": 1,
+    "id_destino": 2,
+    "cantidad": 6,
+    "total": 432000,
+    "fecha": "01/02/2025"
+    },
+    {
+    "id": 2,
+    "id_cliente": 3,
+    "id_destino": 1,
+    "cantidad": 1,
+    "total": 85000,
+    "fecha": "15/02/2025"
+    },
+    {
+    "id": 3,
+    "id_cliente": 4,
+    "id_destino": 5,
+    "cantidad": 1,
+    "total": 95000,
+    "fecha": "05/03/2025"
+    },
+    {
+    "id": 4,
+    "id_cliente": 2,
+    "id_destino": 3,
+    "cantidad": 3,
+    "total": 207000,
+    "fecha": "10/03/2025"
+    },
+    {
+    "id": 5,
+    "id_cliente": 5,
+    "id_destino": 4,
+    "cantidad": 2,
+    "total": 154000,
+    "fecha": "14/03/2025"
+    },
+    {
+    "id": 6,
+    "id_cliente": 3,
+    "id_destino": 2,
+    "cantidad": 2,
+    "total": 144000,
+    "fecha": "25/04/2025"
+    },
+    {
+    "id": 7,
+    "id_cliente": 6,
+    "id_destino": 2,
+    "cantidad": 2,
+    "total": 144000,
+    "fecha": "17/06/2025"
+    }
+]
