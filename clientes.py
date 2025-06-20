@@ -7,7 +7,7 @@ ARCHIVO = 'Archivos-Json/clientes.json'
 def cargar_datos():
     if not os.path.exists(ARCHIVO):
         return []
-    with open(ARCHIVO, 'r') as f:
+    with open(ARCHIVO, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def guardar_datos(clientes):

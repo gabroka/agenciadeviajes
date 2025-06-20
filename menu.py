@@ -1,13 +1,10 @@
-'''
 
-Menu de opciones e interaccion con el usuario
-
-'''
 import tkinter as tk
 from estadisticas import estadisticas
 from tkinter import messagebox
 from Clientes import agregar_cliente
-
+from Clientes import cargar_datos
+from tkinter import ttk
 
 
 
@@ -26,7 +23,7 @@ def crear_nuevo_cliente(datos):
         messagebox.showinfo("Información", "Operación completada con éxito.")
     else:
         messagebox.showerror('Error',resultado)
-        
+
 def NvoCliente():
     camposDatos=['Nombre', 'Apellido', 'DNI', 'Telefono','Email','Direccion', 'Ciudad', 'Codigo Postal', 'Provincia', 'Pais']
     vars_entrada = {campo: tk.StringVar() for campo in camposDatos}
@@ -53,10 +50,58 @@ def NvoCliente():
     #========== boton cerrar ===========#
     btn_cerrar= tk.Button(ventana_clientes, text='Cerrar', command= ventana_clientes.destroy).pack(side='top')
     
-    
-def listar_clientes():
+def listar_clientes():  
     ventana_listar_clientes= tk.Toplevel(ventana)
-    ventana_listar_clientes.geometry('300x300')    
+    ventana_listar_clientes.geometry('1200x500+100+120')
+    clientes = cargar_datos()
+    tree_frame = tk.LabelFrame(ventana_listar_clientes, text="Lista de Clientes", padx=10, pady=10)
+    tree_frame.pack(pady=10, padx=10, fill="both", expand=True)
+
+    tree = ttk.Treeview(tree_frame, columns=("ID", "Nombre", "Apellido",'DNI','Telefono','Email', 'Direccion','Ciudad','Codigo Postal','Provincia','Pais'), show="headings")
+    tree.heading("ID", text="ID")
+    tree.heading("Nombre", text="Nombre")
+    tree.heading("Apellido", text="Apellido")
+    tree.heading("DNI", text="DNI")
+    tree.heading("Telefono", text="Telefono")
+    tree.heading("Email", text="Email")
+    tree.heading("Direccion", text="Direccion")
+    tree.heading("Ciudad", text="Ciudad")
+    tree.heading("Codigo Postal", text="Codigo Postal")
+    tree.heading("Provincia", text="Provincia")
+    tree.heading("Pais", text="Pais")
+
+    tree.column("ID", width=30, anchor="center")
+    tree.column("Nombre", width=100, anchor="center")
+    tree.column("Apellido", width=100, anchor="center")
+    tree.column("DNI", width=50, anchor="center")
+    tree.column("Telefono", width=100, anchor="center")
+    tree.column("Email", width=200, anchor="center")
+    tree.column("Direccion", width=100, anchor="center")
+    tree.column("Ciudad", width=100, anchor="center")
+    tree.column("Codigo Postal", width=100, anchor="center")
+    tree.column("Provincia", width=100, anchor="center")
+    tree.column("Pais", width=100, anchor='center')
+
+    tree.pack(fill="both", expand=True)
+    for c in clientes:
+        tree.insert("", "end", values=(c['id'], c["nombre"], c["apellido"],  c["dni"],c["telefono"], c["email"], c["direccion"], c["ciudad"], c["codigo_postal"], c["provincia"], c["pais"]))
+    #tree.bind("<<TreeviewSelect>>", load_selected_product)
+
+def otros():
+    ventana_listar_clientes= tk.Toplevel(ventana)
+    ventana_listar_clientes.geometry('400x500+800+120') 
+    camposDatos=['Nombre', 'Apellido', 'DNI', 'Telefono','Email','Direccion', 'Ciudad', 'Codigo Postal', 'Provincia', 'Pais']  
+    vars_entrada = {campo: tk.StringVar() for campo in camposDatos} 
+
+    listar_cliente_marco= tk.LabelFrame(ventana_listar_clientes, text='Listar Clientes')
+    listar_cliente_marco.configure(padx=5, pady=5, width=500, height=200)
+    listar_cliente_marco.pack(side='top')
+
+    row=0
+    for campo in camposDatos:
+        tk.Label(listar_cliente_marco, text=f"{campo}:").grid(row=row,column=0,padx=5, pady=5)
+        tk.Entry(listar_cliente_marco, textvariable=vars_entrada[campo]).grid(row=row,column=1,padx=5, pady=5)
+        row += 1
 
 ventana= tk.Tk()
 ventana.geometry('600x430')
