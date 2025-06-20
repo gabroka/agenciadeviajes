@@ -26,7 +26,7 @@ marco_abm_destinos= tk.LabelFrame(ventana)
 marco_abm_destinos.configure(text='ABM Destinos', padx=5, pady=5)
 
 marco_abm_ventas= tk.LabelFrame(ventana)
-marco_abm_ventas.configure(text='ABM Ventas', padx=5, pady=5)
+marco_abm_ventas.configure(text='Ventas', padx=5, pady=5)
 
 marco_abm_estadisticas= tk.LabelFrame(ventana)
 marco_abm_estadisticas.configure(text='ABM Estadisticas', padx=5, pady=5)

@@ -2,7 +2,7 @@
 import json
 import os
 
-ARCHIVO = 'clientes.json'
+ARCHIVO = 'Archivos-Json/clientes.json'
 
 def cargar_datos():
     if not os.path.exists(ARCHIVO):

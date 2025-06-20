@@ -1,7 +1,7 @@
 
 import json
 import os
-from clientes import cargar_datos as leer_clientes
+from Clientes import cargar_datos as leer_clientes
 from tabulate import tabulate
 from datetime import datetime
 import requests  # ==> Importo la biblioteca requests para poder hacer solicitudes HTTP a APIs externas
@@ -64,7 +64,7 @@ Funciones auxiliares:
 # Busca cliente por su dni
 def buscar_clienteDNI():
     dni = input("\nIngrese el DNI del cliente: ")
-
+    global clientes
     for c in clientes:
         if c['dni'] == dni:
             print(f"\n✅ El cliente seleccionado es: {c['nombre'].title()} {c['apellido'].title()}\n")
@@ -187,7 +187,7 @@ def registrar_venta():
     # Registrar la venta
     nueva_venta = {
         "id": id,
-        "dni_cliente": cliente["dni"],
+        "id_cliente": cliente["id"],
         "id_destino": destino["id"],
         "cantidad": cantidad,
         "total": total,
@@ -218,6 +218,7 @@ def registrar_venta():
 Permite ejecutar esta funcion directamente desde este archivo y evita que se ejecute automáticamente si lo importo desde otro módulo (menu)
 
 '''
+
 if __name__ == "__main__":
     registrar_venta()
 
