@@ -30,49 +30,50 @@ def validar_email(email):
     return True
 
 
-def agregar_cliente():
+def agregar_cliente(datos):
     clientes = cargar_datos()
     nuevo_id = max([c['id'] for c in clientes], default=0) + 1
-    apellido = input("Apellido: ")
-    nombre = input("Nombre: ")
+    """ apellido = input("Apellido: ")
+    nombre = input("Nombre: ") """
 
-    dni = input("DNI: ")
-    while not validar_dni(dni):
-        print("DNI inválido. Debe tener entre 7 y 8 dígitos.")
+    #dni = input("DNI: ")
+    while not validar_dni(datos['DNI']):
+        return "DNI inválido. Debe tener entre 7 y 8 dígitos."
         dni = input("DNI: ")
 
-    telefono = input("Teléfono: ")
-    while not validar_telefono(telefono):
-        print("Teléfono inválido ")
+    #telefono = input("Teléfono: ")
+    while not validar_telefono(datos['Telefono']):
+        return "Teléfono inválido "
         telefono = input("Teléfono: ")
 
-    email = input("Email: ")
-    while not validar_email(email):
-        print("Email inválido.")
+    #email = input("Email: ")
+    while not validar_email(datos['Email']):
+        return "Email inválido."
         email = input("Email: ")
 
-    direccion = input("Dirección: ")
-    ciudad = input("Ciudad: ")
-    codigo_postal = input("Código Postal: ")
-    provincia = input("Provincia: ")
-    pais = input("País: ")
+    #direccion = input("Dirección: ")
+    #ciudad = input("Ciudad: ")
+    #codigo_postal = input("Código Postal: ")
+    #provincia = input("Provincia: ")
+    #pais = input("País: ")
 
     clientes.append({
         'id': nuevo_id,
-        'apellido': apellido,
-        'nombre': nombre,
-        'dni': dni,
-        'telefono': telefono,
-        'email': email,
-        'direccion': direccion,
-        'ciudad': ciudad,
-        'codigo_postal': codigo_postal,
-        'provincia': provincia,
-        'pais': pais
+        'apellido': datos['Apellido'],
+        'nombre': datos['Nombre'],
+        'dni': datos['DNI'],
+        'telefono': datos['Telefono'],
+        'email': datos['Email'],
+        'direccion': datos['Direccion'],
+        'ciudad': datos['Ciudad'],
+        'codigo_postal': datos['Codigo Postal'],
+        'provincia': datos['Provincia'],
+        'pais': datos['Pais']
     })
 
     guardar_datos(clientes)
-    print(" Cliente agregado exitosamente.\n")
+    return True
+    #print(" Cliente agregado exitosamente.\n")
 
 
 def listar_clientes():

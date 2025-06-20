@@ -4,7 +4,12 @@ Menu de opciones e interaccion con el usuario
 
 '''
 import tkinter as tk
-from estadisticas_2 import estadisticas
+from estadisticas import estadisticas
+from tkinter import messagebox
+from Clientes import agregar_cliente
+
+
+
 
 def configurar_boton(boton):
     boton.configure(
@@ -14,9 +19,47 @@ def configurar_boton(boton):
         font=("Arial", 15)  # Fuente (opcional)
     )
 
+def crear_nuevo_cliente(datos):
+    valores = {k: v.get() for k, v in datos.items()}
+    resultado = agregar_cliente(valores)
+    if resultado == True:
+        messagebox.showinfo("Información", "Operación completada con éxito.")
+    else:
+        messagebox.showerror('Error',resultado)
+        
+def NvoCliente():
+    camposDatos=['Nombre', 'Apellido', 'DNI', 'Telefono','Email','Direccion', 'Ciudad', 'Codigo Postal', 'Provincia', 'Pais']
+    vars_entrada = {campo: tk.StringVar() for campo in camposDatos}
+
+    #========== definicion de la ventana de nuevo cliente ===========#
+    ventana_clientes = tk.Toplevel(ventana)
+    ventana_clientes.geometry('400x500+800+120')
+
+    #========== definicion del marco para ingreso de nuevos datos ===========#
+    nvo_cliente_marco= tk.LabelFrame(ventana_clientes, text=' Nuevo Cliente')
+    nvo_cliente_marco.configure(padx=5, pady=5, width=500, height=200)
+    nvo_cliente_marco.pack(side='top')
+    
+    #========== definicion de entrada de datos ===========#
+    row=0
+    for campo in camposDatos:
+        tk.Label(nvo_cliente_marco, text=f"{campo}:").grid(row=row,column=0,padx=5, pady=5)
+        tk.Entry(nvo_cliente_marco, textvariable=vars_entrada[campo]).grid(row=row,column=1,padx=5, pady=5)
+        row += 1
+
+    #========== boton crear nuevo cliente ===========#
+    btn_crear_nuevo_cliente= tk.Button(ventana_clientes, text='Crear Nuevo Cliente', command=lambda: crear_nuevo_cliente(vars_entrada)).pack()
+
+    #========== boton cerrar ===========#
+    btn_cerrar= tk.Button(ventana_clientes, text='Cerrar', command= ventana_clientes.destroy).pack(side='top')
+    
+    
+def listar_clientes():
+    ventana_listar_clientes= tk.Toplevel(ventana)
+    ventana_listar_clientes.geometry('300x300')    
 
 ventana= tk.Tk()
-ventana.geometry('800x800')
+ventana.geometry('600x430')
 
 #========== definicion de los marcos ===========#
 marco_abm_clientes= tk.LabelFrame(ventana)
@@ -31,11 +74,10 @@ marco_abm_ventas.configure(text='Ventas', padx=5, pady=5)
 marco_abm_estadisticas= tk.LabelFrame(ventana)
 marco_abm_estadisticas.configure(text='ABM Estadisticas', padx=5, pady=5)
 
-
 #========== botones del marco clientes ===========#
-btn_nvo_cliente= tk.Button(marco_abm_clientes, text='Nuevo Cliente')
+btn_nvo_cliente= tk.Button(marco_abm_clientes, text='Nuevo Cliente', command=NvoCliente)
 configurar_boton(btn_nvo_cliente)
-btn_listar_cliente= tk.Button(marco_abm_clientes, text='Listar Clientes')
+btn_listar_cliente= tk.Button(marco_abm_clientes, text='Listar Clientes', command=listar_clientes)
 configurar_boton(btn_listar_cliente)
 btn_find_cliente= tk.Button(marco_abm_clientes, text='Buscar Cliente')
 configurar_boton(btn_find_cliente)
@@ -55,8 +97,6 @@ configurar_boton(btn_eliminar_destino)
 #========== botones del marco ventas ===========#
 btn_nva_venta= tk.Button(marco_abm_ventas, text='Nueva Venta')
 configurar_boton(btn_nva_venta)
-
-
 
 #========== botones del marco estadisticas ===========#
 btn_venta_por_periodo= tk.Button(marco_abm_estadisticas, text='Venta De Un Periodo')
@@ -87,10 +127,10 @@ btn_menos_vendido.grid(row=1,column=0)
 btn_vta_de_un_destino.grid(row=1,column=1)
 
 #========== inicializa los marcos ===========#
-marco_abm_clientes.pack()
-marco_abm_destinos.pack()
-marco_abm_ventas.pack()
-marco_abm_estadisticas.pack()
+marco_abm_clientes.pack(pady=5)
+marco_abm_destinos.pack(pady=5)
+marco_abm_ventas.pack(pady=5)
+marco_abm_estadisticas.pack(pady=5)
 
 
 
