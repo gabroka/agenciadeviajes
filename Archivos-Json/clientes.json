@@ -2,7 +2,7 @@
     {
         "id": 1,
         "apellido": "P\u00e9rez",
-        "nombre": "Ana",
+        "nombre": "maria",
         "dni": "30256845",
         "telefono": "03434225630",
         "email": "ana.perez@gmail.com",
@@ -14,12 +14,12 @@
     },
     {
         "id": 2,
-        "apellido": "G\u00f3mez",
         "nombre": "Luis",
+        "apellido": "G\u00f3mez",
         "dni": "28345091",
         "telefono": "03434225630",
         "email": "luisgomez@gmail.com",
-        "direccion": "españa 238",
+        "direccion": "espa\u00f1a 321",
         "ciudad": "parana",
         "codigo_postal": "3100",
         "provincia": "entre rios",
@@ -88,6 +88,45 @@
         "ciudad": "rosario",
         "codigo_postal": "3000",
         "provincia": "santa fe",
+        "pais": "argentina"
+    },
+    {
+        "id": 8,
+        "apellido": "lugones",
+        "nombre": "leopoldo",
+        "dni": "20560375",
+        "telefono": "0341-4225630",
+        "email": "yo@yo.com",
+        "direccion": "rosarigasino 678",
+        "ciudad": "rosario",
+        "codigo_postal": "3000",
+        "provincia": "santa fe",
+        "pais": "argentina"
+    },
+    {
+        "id": 9,
+        "apellido": "cantero",
+        "nombre": "maria gabriela",
+        "dni": "22539213",
+        "telefono": "0343-4217095",
+        "email": "gabriela.cantero@gmail.com",
+        "direccion": "micasa 123",
+        "ciudad": "parana",
+        "codigo_postal": "3100",
+        "provincia": "entre rios",
+        "pais": "argentina"
+    },
+    {
+        "id": 10,
+        "apellido": "cardozo",
+        "nombre": "yanina",
+        "dni": "35456781",
+        "telefono": "03454212222",
+        "email": "yanina.cardozo@gmail.com",
+        "direccion": "san martin 598",
+        "ciudad": "concordia",
+        "codigo_postal": "3200",
+        "provincia": "entre rios",
         "pais": "argentina"
     }
 ]

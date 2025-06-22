@@ -4,7 +4,7 @@ import os
 
 ARCHIVO = 'Archivos-Json/clientes.json'
 
-def cargar_datos():
+def cargar_datos_cliente():
     if not os.path.exists(ARCHIVO):
         return []
     with open(ARCHIVO, 'r', encoding='utf-8') as f:
@@ -31,7 +31,7 @@ def validar_email(email):
 
 
 def agregar_cliente(datos):
-    clientes = cargar_datos()
+    clientes = cargar_datos_cliente()
     nuevo_id = max([c['id'] for c in clientes], default=0) + 1
     """ apellido = input("Apellido: ")
     nombre = input("Nombre: ") """
@@ -112,20 +112,22 @@ def buscar_cliente():
             )
         print()
 
-def eliminar_cliente():
+def eliminar_cliente(id_eliminar):
     clientes = cargar_datos()
+    '''
     try:
         id_eliminar = int(input("Ingrese el ID del cliente a eliminar: "))
     except ValueError:
         print(" ID inválido.\n")
         return
+        '''
 
     clientes_filtrados = [c for c in clientes if c['id'] != id_eliminar]
     if len(clientes) == len(clientes_filtrados):
-        print(" No se encontró un cliente con ese ID.\n")
+        return "No se encontró un cliente con ese ID.\n"
     else:
         guardar_datos(clientes_filtrados)
-        print(" Cliente eliminado exitosamente.\n")
+        return True
 
 def menu():
     while True:

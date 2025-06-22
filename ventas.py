@@ -1,7 +1,7 @@
 
 import json
 import os
-from Clientes import cargar_datos as leer_clientes
+from Clientes import cargar_datos_cliente as leer_clientes
 from tabulate import tabulate
 from datetime import datetime
 import requests  # ==> Importo la biblioteca requests para poder hacer solicitudes HTTP a APIs externas
