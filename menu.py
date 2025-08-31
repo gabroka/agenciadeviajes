@@ -1,4 +1,4 @@
-
+import datetime 
 import tkinter as tk
 from estadisticas import estadisticas
 from tkinter import messagebox
@@ -10,6 +10,7 @@ from destinos import agregar_destino
 from destinos import cargar_destinos
 from destinos import guardar_destinos
 from destinos import eliminar_destino_tk
+from ventas import leer_ventas
 from tkinter import ttk
 
 #========== configura los botones de menu ===========#
@@ -433,8 +434,129 @@ def EliminarDestino():
 #================================ FIN abm destinos ==========================================#
 
 #================================ ventas ====================================================#
+            
+def ventas():
+    ventana_ventas= tk.Toplevel(ventana)
+    ventana_ventas.title('Venta Confirmada')
+    ventana_ventas.geometry('400x500+700+120')
+    clientes = cargar_datos_cliente()
+    destinos= cargar_destinos()
+    #lista=[]
+        
+    lista_cliente=[f"{cliente['id']} {cliente['nombre']} {cliente['apellido']},dni: {cliente['dni']}" for cliente in clientes]
+    lista_destinos=[f"{destino['nombre']}, precio: {destino['precio']},cupo: {destino['disponibilidad']}" for destino in destinos]
+    cliente_var = tk.StringVar()
+    destino_var = tk.StringVar()
+    cantidad_var = tk.IntVar(value=1)
+    precio_unitario_var = tk.StringVar()
+    precio_total_var = tk.StringVar()
+    
+    #seleccion cliente
+    label_seleccion_cliente=ttk.Label(ventana_ventas, text="Cliente:").grid(row=0, column=0, sticky=tk.W, pady=5)
+    entry_seleccion_cliente = ttk.Combobox(
+            ventana_ventas, width=30,
+            textvariable=cliente_var, 
+            values=lista_cliente).grid(row=0, column=1 ,sticky=(tk.W, tk.E), padx=5, pady=5)
+    
+    #seleccion destino
+    label_seleccion_destino=ttk.Label(ventana_ventas, text="Destino:").grid(row=1, column=0, sticky=tk.W, pady=5)
+    entry_seleccion_destino = ttk.Combobox(
+            ventana_ventas, width=30,
+            textvariable=destino_var, 
+            values=lista_destinos).grid(row=1, column=1 ,sticky=(tk.W, tk.E), padx=5, pady=5)
+    
+    # cantidad comprada
+    label_cantidad_comprada=ttk.Label(ventana_ventas, text="Cantidad Reservada:").grid(row=2, column=0, sticky=tk.W, pady=5)
+    entry_cantidad_comprada=ttk.Entry(ventana_ventas, textvariable=cantidad_var).grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
 
+    # Precio unitario
+    label_precio_unitario=ttk.Label(ventana_ventas, text="Precio Unitario:").grid(row=3, column=0, sticky=tk.W, pady=5)
+    entry_precio_unitario=ttk.Entry(ventana_ventas, textvariable=precio_unitario_var, state='readonly').grid(row=3, column=1, sticky=tk.W, padx=5, pady=5)
 
+    # Precio total
+    label_precio_total=ttk.Label(ventana_ventas, text="Precio Total:").grid(row=4, column=0, sticky=tk.W, pady=5)
+    entry_precio_total=ttk.Entry(ventana_ventas, textvariable=precio_total_var, state='readonly').grid(row=4, column=1, sticky=tk.W, padx=5, pady=5)
+
+    def DatosDestino(devuelve,destino):
+        print(destino.get())
+        match devuelve:
+            case 'nombre':
+                print(f"{destino.get().split(',')[0]}")
+                return destino.get().split(",")[0] 
+            case 'precio':
+                print(f"{destino.get().split('precio: ')[1].split(',')[0]}" )
+                return destino.get().split("precio: ")[1].split(',')[0] 
+            case 'cupo':
+                print(f"{destino.get().split(',')[2].split(':')[1]}" )
+                return destino.get().split(",")[2].split(':')[1]     
+
+    def DatosCliente(nombre,cliente):
+        print('nombre: ',nombre,'cliente.get(): ',cliente.get())
+        match nombre:
+            case 'nombre':
+                pass
+                #return cliente.get().split(',')[0]
+            
+    def PrecioUnitarioaDestino(destino):
+        if destino.get() !='':
+            valordestino=DatosDestino('precio',destino)
+            #valordestino=destino.get().split("precio: ")[1].split(',')[0] 
+            precio_unitario_var.set(str(valordestino))
+        try:
+            precio_total_var.set(str(float(valordestino)*float(cantidad_var.get())))
+            btn_confirmar_venta.config(state='normal')
+        except Exception:
+            btn_confirmar_venta.config(state='disabled')
+    destino_var.trace_add('write',lambda *_, destino=destino_var: PrecioUnitarioaDestino(destino))
+    cantidad_var.trace_add('write',lambda *_, destino=destino_var: PrecioUnitarioaDestino(destino))
+
+    def confirmar_venta():
+        venta_confirmada=tk.LabelFrame(ventana_ventas, text='Venta Confirmada', width=250, height=200)
+        venta_confirmada.grid(row=6,column=0,columnspan=3 )
+        cliente=tk.StringVar()
+        cliente.set(cliente_var.get().split(',')[0])
+        # Nombre del cliente en confirmacion de venta
+        tk.Label(venta_confirmada, text='Cliente:').place(x=10,y=10)
+        tk.Entry(venta_confirmada,textvariable=cliente , state='readonly').place(x=100,y=10)
+        nombre_destino=tk.StringVar()
+        nombre_destino.set(destino_var.get().split(",")[0] )
+        # nombre del destio en confirmacion de venta
+        tk.Label(venta_confirmada, text='Destino:').place(x=10,y=40)
+        tk.Entry(venta_confirmada,textvariable=nombre_destino , state='readonly').place(x=100,y=40)
+        #muestra el precio total en confirmacion de venta
+        precio=tk.DoubleVar()
+        precio.set(destino_var.get().split("precio: ")[1].split(',')[0])
+        tk.Label(venta_confirmada, text='Precio Unitario:').place(x=10,y=80)
+        tk.Entry(venta_confirmada,textvariable=precio , state='readonly').place(x=100,y=80)
+
+        precio_total=tk.DoubleVar()
+        precio_total.set(cantidad_var.get()*precio.get())
+        tk.Label(venta_confirmada, text='Precio Total:').place(x=10,y=120)
+        tk.Entry(venta_confirmada,textvariable=precio_total , state='readonly').place(x=100,y=120)
+        json_ventas=(leer_ventas())
+        proximo_id=json_ventas[len(json_ventas)-1].get('id')+1
+        #print(proximo_id)
+        #fecha_actual=datetime.datetime.today
+        print(cliente_var.get())
+        
+        nva_venta={
+            "id":proximo_id,
+            "id_cliente": cliente_var.get(),
+            "id_destino": nombre_destino.get(),
+            "cantidad": cantidad_var.get(),
+            "total":precio.get(),
+            "fecha": datetime.datetime.today().strftime('%d%m%y')
+                   }
+        print(nva_venta)
+        
+
+    btn_confirmar_venta=ttk.Button(
+            ventana_ventas, 
+            text="Confirmar Venta", 
+            command= confirmar_venta
+        )
+    btn_confirmar_venta.grid(row=5, column=0, columnspan=2, pady=15)
+    
 #================================ FIN ventas ================================================#
 ventana= tk.Tk()
 ventana.geometry('600x430')
